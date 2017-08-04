@@ -21,7 +21,8 @@ const app = express();
 
 app.disable('etag');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 app.set('trust proxy', true);
 
 // products
@@ -29,9 +30,13 @@ app.use('/products', require('./products/crud'));
 app.use('/api/products', require('./products/api'));
 
 // Redirect root to /products
-app.get('/', (req, res) => {
-  res.redirect('/products');
-});
+// app.get('/', (req, res) => {
+//   res.redirect('/products');
+// });
+
+app.get('/', function (req, res) {
+  res.render('index', { title: 'Hey', message: 'Hello there!' })
+})
 
 // Basic 404 handler
 app.use((req, res) => {
