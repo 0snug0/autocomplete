@@ -29,6 +29,6 @@ block content
     .media-body
       h4= product.name
         | &nbsp;
-        small= product.price
-      h5 By #{product.image||'unknown'}
+        small= $ product.price
+      h5 By #{product.manufacturer||'unknown'}
       p= product.description
