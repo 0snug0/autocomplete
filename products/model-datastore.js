@@ -91,7 +91,7 @@ function toDatastore (obj, nonIndexed) {
 function list (limit, token, cb) {
   const q = ds.createQuery([kind])
     .limit(limit)
-    .order('name')
+    .order('image')
     .start(token);
 
   ds.runQuery(q, (err, entities, nextQuery) => {

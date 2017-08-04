@@ -18,17 +18,14 @@ block content
     small
 
   .btn-group
-    a(href="/products/#{product.id}/edit", class='btn btn-primary btn-sm')
-      i.glyphicon.glyphicon-edit
-      span  Edit product
-    a(href="/products/#{product.id}/delete", class='btn btn-danger btn-sm')
-      i.glyphicon.glyphicon-trash
-      span  Delete product
+    a(href="/products/#{product.id}/buy", class='btn btn-danger btn-sm')
+      i.glyphicon.glyphicon-cart
+      span  Buy product
 
   .media
     .media-body
       h4= product.name
         | &nbsp;
-        small= $ product.price
+        p $#{product.price}
       h5 By #{product.manufacturer||'unknown'}
       p= product.description

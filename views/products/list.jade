@@ -14,18 +14,20 @@
 extends ../base.jade
 
 block content
-  h3 products
+  form(method="")
+    .form-group
+      label(for="name") Search
+      input.form-control(type="text")
 
-  a(href="/products/add", class='btn btn-success btn-sm')
-    i.glyphicon.glyphicon-plus
-    span  Add product
+
+  h3 Products
 
   each product in products
     .media
       a(href="/products/#{product.id}")
         .media-body
-          h4= product.name
-          p= product.price
+          p= product.name
+          p $#{product.price}
 
   if !products.length
     p No products found.
