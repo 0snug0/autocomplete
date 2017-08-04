@@ -1,0 +1,72 @@
+//- Copyright 2017, Google, Inc.
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+// [START form]
+extends ../base.jade
+
+block content
+  h3 #{action} product
+  form(method="POST")
+    .form-group
+      label(for="name") Name
+      input.form-control(type="text", name="name", id="name", value=product.name)
+
+    .form-group
+      label(for="sku") SKU
+      input.form-control(type="text", name="sku", id="sku", value=product.sku)
+
+    .form-group
+      label(for="type") Type
+      input.form-control(type="text", name="type", id="type", value=product.type)
+
+    .form-group
+      label(for="price") Price
+      input.form-control(type="text", name="price", id="price", value=product.price)
+
+    .form-group
+      label(for="upc") UPC 
+      input.form-control(type="text", name="upc", id="upc", value=product.upc)
+
+    .form-group
+      label(for="category") Category
+      input.form-control(type="text", name="category", id="category", value=product.category)
+
+    .form-group
+      label(for="shipping") Shipping
+      input.form-control(type="text", name="shipping", id="shipping", value=product.shipping)
+
+    .form-group
+      label(for="description") Description
+      input.form-control(type="text", name="description", id="description", value=product.description)
+
+    .form-group
+      label(for="manufacturer") Manufacturer
+      input.form-control(type="text", name="manufacturer", id="manufacturer", value=product.manufacturer)
+
+    .form-group
+      label(for="model") Model
+      input.form-control(type="text", name="model", id="model", value=product.model)
+
+    .form-group
+      label(for="url") URL
+      input.form-control(type="text", name="url", id="url", value=product.url)
+
+    .form-group
+      label(for="image") Image
+      input.form-control(type="text", name="image", id="image", value=product.image)
+
+    .form-group
+    button.btn.btn-success(type="submit") Save
+
+// [END form]
+

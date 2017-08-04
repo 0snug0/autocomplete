@@ -1,0 +1,78 @@
+{
+  "name": "nodejs-getting-started",
+  "version": "1.0.0",
+  "description": "End to end sample for running Node.js applications on Google Cloud Platform",
+  "repository": "https://github.com/GoogleCloudPlatform/nodejs-getting-started",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "e2e": "rm -rf node_modules/ &&  samples test build --deploy --timeout 20m --builderProject $GCLOUD_PROJECT",
+    "test": "samples test app && ava -t 30s --tap test/*.test.js | tap-dot",
+    "cover": "nyc --cache npm test; nyc report --reporter=html",
+    "init-cloudsql": "node products/model-cloudsql.js"
+  },
+  "author": "Google Inc.",
+  "contributors": [
+    {
+      "name": "Jon Wayne Parrott",
+      "email": "jonwayne@google.com"
+    },
+    {
+      "name": "Jonathan Simon",
+      "email": "jbsimon@google.com"
+    },
+    {
+      "name": "Jason Dobry",
+      "email": "jdobry@google.com"
+    },
+    {
+      "name": "Ace Nassri",
+      "email": "anassri@google.com"
+    }
+  ],
+  "cloud-repo-tools": {
+    "requiresKeyFile": true,
+    "requiresProjectId": true,
+    "test": {
+      "app": {
+        "args": [
+          "app.js"
+        ],
+        "msg": "productshelf - Node.js on Google Cloud Platform"
+      }
+    }
+  },
+  "license": "Apache-2.0",
+  "semistandard": {
+    "globals": [
+      "after",
+      "afterEach",
+      "before",
+      "beforeEach",
+      "describe",
+      "it"
+    ]
+  },
+  "dependencies": {
+    "@google-cloud/datastore": "~1.0.0",
+    "body-parser": "~1.17.1",
+    "express": "~4.15.2",
+    "jade": "~1.11.0",
+    "lodash": "~4.17.4",
+    "mongodb": "~2.2.25",
+    "mysql": "~2.14.0",
+    "nconf": "~0.8.4",
+    "prompt": "~1.0.0",
+    "uglify-js": "3.0.26"
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "1.4.15",
+    "ava": "~0.21.0",
+    "proxyquire": "~1.8.0",
+    "sinon": "~2.4.1",
+    "tap-dot": "~1.0.5"
+  },
+  "engines": {
+    "node": ">=4.3.2"
+  }
+}
