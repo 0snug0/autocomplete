@@ -27,8 +27,8 @@ block content
 
   .media
     .media-body
-      h4= product.title
+      h4= product.name
         | &nbsp;
-        small= product.publishedDate
-      h5 By #{product.author||'unknown'}
+        small= product.price
+      h5 By #{product.image||'unknown'}
       p= product.description
