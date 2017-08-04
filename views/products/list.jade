@@ -24,8 +24,8 @@ block content
     .media
       a(href="/products/#{product.id}")
         .media-body
-          h4= product.title
-          p= product.author
+          h4= product.name
+          p= product.price
 
   if !products.length
     p No products found.
