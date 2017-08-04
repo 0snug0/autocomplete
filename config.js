@@ -44,15 +44,15 @@ nconf
     DATA_BACKEND: 'datastore',
 
     // This is the id of your project in the Google Cloud Developers Console.
-    GCLOUD_PROJECT: '',
+    GCLOUD_PROJECT: 'autocomplete-175812',
 
     // MongoDB connection string
     // https://docs.mongodb.org/manual/reference/connection-string/
-    MONGO_URL: 'mongodb://localhost:27017',
-    MONGO_COLLECTION: 'products',
+    // MONGO_URL: 'mongodb://localhost:27017',
+    // MONGO_COLLECTION: 'products',
 
-    MYSQL_USER: '',
-    MYSQL_PASSWORD: '',
+    // MYSQL_USER: '',
+    // MYSQL_PASSWORD: '',
 
     PORT: 8080
   });
