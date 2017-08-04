@@ -19,21 +19,3 @@ block content
       label(for="name") Search
       input.form-control(type="text")
 
-
-  h3 Products
-
-  each product in products
-    .media
-      a(href="/products/#{product.id}")
-        .media-body
-          p= product.name
-          p $#{product.price}
-
-  if !products.length
-    p No products found.
-
-  if nextPageToken
-    nav
-      ul.pager
-        li
-          a(href="?pageToken=#{encodeURIComponent(nextPageToken)}") More
