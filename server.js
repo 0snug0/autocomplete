@@ -24,6 +24,10 @@ router.get("/contact",function(req,res){
 app.use("/",router);
 app.use('/static', express.static('public'))
 
+// products
+app.use('/products', require('./products/crud'));
+app.use('/api/products', require('./products/api'));
+
 app.use("*",function(req,res){
   res.sendFile(path + "404.html");
 });
