@@ -25,6 +25,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.set('trust proxy', true);
 
+// static files
+app.use('/static', express.static('public'))
+
 // products
 app.use('/products', require('./products/crud'));
 app.use('/api/products', require('./products/api'));
