@@ -1,7 +1,8 @@
-var express = require("express");
-var app = express();
-var router = express.Router();
-var path = __dirname + '/views/';
+const express = require("express");
+const app = express();
+const router = express.Router();
+const path = __dirname + '/views/';
+const config = require('./config');
 
 router.use(function (req,res,next) {
   console.log("/" + req.method);
@@ -26,6 +27,14 @@ app.use("*",function(req,res){
   res.sendFile(path + "404.html");
 });
 
-app.listen(3000,function(){
-  console.log("Live at Port 3000");
-});
+// app.listen(3000,function(){
+//   console.log("Live at Port 3000");
+// });
+
+if (module === require.main) {
+  // Start the server
+  const server = app.listen(config.get('PORT'), () => {
+    const port = server.address().port;
+    console.log(`App listening on port ${port}`);
+  });
+}
