@@ -8,10 +8,74 @@
   <!--
     Your HTML content here
   -->  
+
+<style>
+@import compass
+
+@import compass
+  
+// Variables
+$padding: 10px
+$gfont: "Arvo", "Helvetica Neue", Helvetica, arial, sans-serif
+$fw-normal: 400
+$fw-heavy: 700
+
+%radius
+  +border-radius(3px)
+
+body
+  text-align: center
+  background: #f2f2f2
+    
+.title
+  width: 100%
+  margin: 3em 0 1em
+  text-align: center
+  font-family: $gfont
+  font-size: 170%
+  font-weight: $fw-normal
+  color: #2a5ba3
+  +text-shadow(#fff 1px 1px 0px, #ddd 2px 2px, #ddd 3px 3px 1px)
+  
+.search-field
+  display: block
+  width: 30%
+  margin: 1em auto 0
+  padding: .5em $padding
+  border: 1px solid #999
+  font-size: 130%
+  font-family: $gfont
+  font-weight: $fw-normal
+  color: #3e8ce0
+  @extend %radius
+    
+.term-list
+  list-style: none inside
+  width: 30%
+  margin: 0 auto 2em
+  padding: #{$padding / 2} $padding 0
+  text-align: left
+  color: #777
+  background: #fff
+  border: 1px solid #ddd
+  font-family: $gfont
+  font-weight: $fw-normal
+  @extend %radius
+  li
+    padding: .5em 0
+    border-bottom: 1px solid #eee
+  strong
+    color: #444
+    font-weight: $fw-heavy
+
+.hidden
+  display: none
+</style>
 <h1 class="title">AutoComplete Me</h1>
 <input type="text" id="searchBox" 
 class="search-field" autoFocus />
 <ul id="searchResults" class="term-list hidden"></ul>
+
 
 	<script> 
 var searchIndex = ["404 Error","Address Bar","Ajax","Apache","Autoresponder","BitTorrent","Blog","Bookmark","Bot","Broadband","Captcha","Certificate","Client","Cloud","Cloud Computing","CMS","Cookie","CSS","Cyberspace","Denial of Service","DHCP","Dial-up","DNS Record","Domain Name","Download","E-mail","Facebook","FiOS","Firewall","FTP","Gateway","Google","Google Drive","Gopher","Hashtag","Hit","Home Page","HTML","HTTP","HTTPS","Hyperlink","Hypertext","ICANN","Inbox","Internet","InterNIC","IP","IP Address","IPv4","IPv6","IRC","iSCSI","ISDN","ISP","JavaScript","jQuery","Meta Search Engine","Meta Tag","Minisite","Mirror","Name Server","Packet","Page View","Payload","Phishing","POP3","Protocol","Scraping","Search Engine","Social Networking","Socket","Spam","Spider","Spoofing","SSH","SSL","Static Website","Twitter","XHTML"];
