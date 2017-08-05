@@ -2,163 +2,197 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Angular Material style sheet -->
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
   <style>
-  @import compass
-
-@import compass
-  
-// Variables
-$padding: 10px
-$gfont: "Arvo", "Helvetica Neue", Helvetica, arial, sans-serif
-$fw-normal: 400
-$fw-heavy: 700
-
-%radius
-  +border-radius(3px)
-
-body
-  text-align: center
-  background: #f2f2f2
-    
-.title
-  width: 100%
-  margin: 3em 0 1em
-  text-align: center
-  font-family: $gfont
-  font-size: 170%
-  font-weight: $fw-normal
-  color: #2a5ba3
-  +text-shadow(#fff 1px 1px 0px, #ddd 2px 2px, #ddd 3px 3px 1px)
-  
-.search-field
-  display: block
-  width: 30%
-  margin: 1em auto 0
-  padding: .5em $padding
-  border: 1px solid #999
-  font-size: 130%
-  font-family: $gfont
-  font-weight: $fw-normal
-  color: #3e8ce0
-  @extend %radius
-    
-.term-list
-  list-style: none inside
-  width: 30%
-  margin: 0 auto 2em
-  padding: #{$padding / 2} $padding 0
-  text-align: left
-  color: #777
-  background: #fff
-  border: 1px solid #ddd
-  font-family: $gfont
-  font-weight: $fw-normal
-  @extend %radius
-  li
-    padding: .5em 0
-    border-bottom: 1px solid #eee
-  strong
-    color: #444
-    font-weight: $fw-heavy
-
-.hidden
-  display: none
+          body{background-color:#34495e;}
+        ul
+        {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .selected
+        {
+            background: #3498DB;
+            padding-bottom: 8px;
+            color: #fff;
+        }
+        #quickSearchDiv
+        {
+            background-color: #fff;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: 250px;
+            display:none; 
+            margin-top:1px; 
+            border: 1px solid #CCC; 
+            min-height:0px;
+            text-align:left;
+            z-index:999;
+            position: relative;
+        }
+        #quickSearchDiv ul li
+        {
+            font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-variant: normal;
+            color: #000;
+        }
+        #quickSearchDiv ul li a
+        {
+            font-size: 11px;
+            border-bottom: 1px solid #F7F7F7;
+            color: #000;
+            display: block;
+            margin: 0;
+            padding: 5px 8px;
+            text-decoration: none;
+            min-height: 20px;
+        }
+        #quickSearchDiv ul li a:hover
+        {
+            background: #1b9bff;
+            padding-bottom: 8px;
+            color: #fff;
+        }
+        #quickSearchDiv ul li.selected a { color: #fff; }
+        #autocomplete
+        {
+            width: 250px;
+            height:25px;
+            padding-left:2px;
+            padding-right:2px;
+            background-color: #34495e;
+            color: #fff;
+            line-height: 100%;
+            font-size: 14px;
+            font-family: Tahoma, Geneva, sans-serif;
+            border:1px solid #223444;
+            font-variant: small-caps;
+            -webkit-appearance: none;
+            -webkit-box-sizing: content-box;
+            outline:none;
+            padding-top:3px;
+        }
+        input[type="search"]::-webkit-search-decoration,
+        input[type="search"]::-webkit-search-cancel-button,
+        input[type="search"]::-webkit-search-results-button,
+        input[type="search"]::-webkit-search-results-decoration 
+        {
+            display: none;
+        }
   </style>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 </head>
 <body ng-app="BlankApp" ng-cloak>
   <!--
     Your HTML content here
   -->  
-
-
-<h1 class="title">AutoComplete Me</h1>
-<input type="text" id="searchBox" 
-class="search-field" autoFocus />
-<ul id="searchResults" class="term-list hidden"></ul>
-
+    <div id="quickSearchContainer" style="float:left; width: 300px;">
+        <input type="search" id="autocomplete">
+        <div id="quickSearchDiv">
+            <ul id="quickSearch"></ul>	
+        </div>
+    </div>
+    <div  id="selection" style="display:none; color: #fff; float:left;">
+        Selected : <span id="text"></span>
+    </div>
 
 	<script> 
-var searchIndex = ["404 Error","Address Bar","Ajax","Apache","Autoresponder","BitTorrent","Blog","Bookmark","Bot","Broadband","Captcha","Certificate","Client","Cloud","Cloud Computing","CMS","Cookie","CSS","Cyberspace","Denial of Service","DHCP","Dial-up","DNS Record","Domain Name","Download","E-mail","Facebook","FiOS","Firewall","FTP","Gateway","Google","Google Drive","Gopher","Hashtag","Hit","Home Page","HTML","HTTP","HTTPS","Hyperlink","Hypertext","ICANN","Inbox","Internet","InterNIC","IP","IP Address","IPv4","IPv6","IRC","iSCSI","ISDN","ISP","JavaScript","jQuery","Meta Search Engine","Meta Tag","Minisite","Mirror","Name Server","Packet","Page View","Payload","Phishing","POP3","Protocol","Scraping","Search Engine","Social Networking","Socket","Spam","Spider","Spoofing","SSH","SSL","Static Website","Twitter","XHTML"];
+$(document).ready(function () {
 
-var input = document.getElementById("searchBox"),
-    ul = document.getElementById("searchResults"),
-    inputTerms, termsArray, prefix, terms, results, sortedResults;
+            var delay = (function () {
+                var timer = 0;
+                return function (callback, ms) {
+                    clearTimeout(timer);
+                    timer = setTimeout(callback, ms);
+                };
+            })();
+            var xml = "<menuitems> <menu data='RUSSIA'/> <menu data='ENGLAND'/> <menu data='USA'/> <menu data='INDIA'/> </menuitems>",
+            xmlMenu = $.parseXML(xml);
 
+            $("#autocomplete").bind('keyup focus', function (e) {
+                //return if up/down/return key
+                if (e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 13) {
+                    e.preventDefault();
+                    return;
+                }
+                delay(function () {
+                    $("#quickSearch").empty();
+                    $("#quickSearchDiv").show();
+                    //non-case-sensitive search item
+                    var regex = new RegExp($("#autocomplete").val(), "i");
+                    var i = 0;
+                    $(xmlMenu).find('menu').filter(function () { return $(this).attr('data').match(regex); }).each(function () {
+                        i++;
+                        if (i > 5) return false;
 
-var search = function() {
-  inputTerms = input.value.toLowerCase();
-  results = [];
-  termsArray = inputTerms.split(' ');
-  prefix = termsArray.length === 1 ? '' : termsArray.slice(0, -1).join(' ') + ' ';
-  terms = termsArray[termsArray.length -1].toLowerCase();
-  
-  for (var i = 0; i < searchIndex.length; i++) {
-    var a = searchIndex[i].toLowerCase(),
-        t = a.indexOf(terms);
-    
-    if (t > -1) {
-      results.push(a);
-    }
-  }
-  
-  evaluateResults();
-};
+                        type = "";
+                        $("#quickSearch").append("<li><a tabindex='-1' href='javascript:void(0);' onclick=dispSelection('" + $(this).attr("data") + "')>" + $(this).attr("data") + "</a></li>");
+                    });
+                    //add class to the first<li>
+                    $("#quickSearch li:first").addClass('selected');
 
-var evaluateResults = function() {
-  if (results.length > 0 && inputTerms.length > 0 && terms.length !== 0) {
-    sortedResults = results.sort(sortResults);
-    appendResults();
-  } 
-  else if (inputTerms.length > 0 && terms.length !== 0) {
-    ul.innerHTML = '<li>Whoah! <strong>' 
-      + inputTerms 
-      + '</strong> is not in the index. <br><small><a href="https://google.com/search?q=' 
-      + encodeURIComponent(inputTerms) + '">Try Google?</a></small></li>';
-    
-  }
-  else if (inputTerms.length !== 0 && terms.length === 0) {
-    return;
-  }
-  else {
-    clearResults();
-  }
-};
+                }, 750);
+            });
 
-var sortResults = function (a,b) {
-  if (a.indexOf(terms) < b.indexOf(terms)) return -1;
-  if (a.indexOf(terms) > b.indexOf(terms)) return 1;
-  return 0;
-}
+            // keypress on the search textbox
+            $("#autocomplete").keydown(function (e) {
+                var selected = $("#quickSearch .selected");
+                if (e.keyCode == 13) { // on select
+                    e.preventDefault();
+                    if ($("#quickSearch li").length > 0) {
+                        dispSelection(selected.find('a').html());
+                    }
+                }
+                if (e.keyCode == 38) { // up
+                    $("#quickSearch .selected").removeClass("selected");
+                    if (selected.prev().length == 0) {
+                        $("#quickSearch li:last").addClass("selected");
+                    } else {
+                        selected.prev().addClass("selected");
+                    }
+                }
+                if (e.keyCode == 40) { // down
+                    var selected = $("#quickSearch .selected");
+                    $("#quickSearch .selected").removeClass("selected");
+                    if (selected.next().length == 0) {
+                        $("#quickSearch li:first").addClass("selected");
+                    } else {
+                        selected.next().addClass("selected");
+                    }
+                }
+            });
+            $("#autocomplete").focusout(function() {
+                if(autocText != $("#autocomplete").val())
+                {
+                    document.getElementById("autocomplete").value = "";
+                    document.getElementById("selection").style.display = "none";
+                    autocText = "";
+                }
+            });
+            $("body").click(function () {
+                $("#quickSearchDiv").hide();
+            });
+            $("#quickSearchContainer").click(function (event) {
+                event.stopPropagation();
+            });
+        });
+        autocText = null;
+        function dispSelection(text)
+        {
+            $("#quickSearchDiv").hide();
+            document.getElementById("selection").style.display = "block";
+            document.getElementById("text").innerHTML = text;
+            document.getElementById("autocomplete").value = text;
+            autocText = text;
+        }
+$(document).ready(function () {
+$("#autocomplete").focus();
 
-var appendResults = function () {
-  clearResults();
-  
-  for (var i=0; i < sortedResults.length && i < 5; i++) {
-    var li = document.createElement("li"),
-        result = prefix 
-          + sortedResults[i].toLowerCase().replace(terms, '<strong>' 
-          + terms 
-          +'</strong>');
-    
-    li.innerHTML = result;
-    ul.appendChild(li);
-  }
-  
-  if ( ul.className !== "term-list") {
-    ul.className = "term-list";
-  }
-};
-
-var clearResults = function() {
-  ul.className = "term-list hidden";
-  ul.innerHTML = '';
-};
-  
-input.addEventListener("keyup", search, false);
-
-
-</script>
+});
+	</script>
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
