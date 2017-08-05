@@ -22,6 +22,7 @@ router.get("/contact",function(req,res){
 });
 
 app.use("/",router);
+app.use(express.static('public'))
 
 app.use("*",function(req,res){
   res.sendFile(path + "404.html");
